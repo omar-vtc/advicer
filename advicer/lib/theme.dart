@@ -41,7 +41,7 @@ class AppTheme {
   );
 
   static const TextTheme _lightTextTheme = TextTheme(
-    displayLarge: _lightHeadingText,
+    headlineLarge: _lightHeadingText,
     bodyLarge: _lightBodyText,
   );
 
@@ -56,7 +56,7 @@ class AppTheme {
   );
 
   static final TextTheme _darkTextTheme = TextTheme(
-    displayLarge: _darkThemeHeadingTextStyle,
+    headlineLarge: _darkThemeHeadingTextStyle,
     bodyLarge: _darkThemeBodyeTextStyle,
   );
 

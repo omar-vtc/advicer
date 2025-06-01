@@ -8,7 +8,11 @@ class AdviceUseCases {
     //and then proceed with busniss logic
     // then execute the following code.
     await Future.delayed(const Duration(seconds: 2), () {});
+
     // call to repo went successful
     return right(AdviceEntity(id: 1, advice: "Advice to test!!"));
+
+    // repo call went wrong
+    // return left(ServerFailure());
   }
 }

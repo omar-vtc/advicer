@@ -59,11 +59,11 @@ class AdvicePage extends StatelessWidget {
                       );
                     } else if (state is AdvicerStateLoaded) {
                       return AdviceField(advice: state.advice);
-                    } else {
-                      return const ErrorMessage(
-                        message: "sorry! something went wrong!",
-                      );
+                    } else if (state is AdvicerStateError) {
+                      return ErrorMessage(message: state.message);
                     }
+
+                    return Container();
                   },
                 ),
               ),

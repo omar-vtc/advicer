@@ -1,3 +1,4 @@
+import 'package:advicer/domain/failures/failures.dart';
 import 'package:advicer/domain/useCases/advice_usecases.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -15,6 +16,18 @@ class AdvicerBloc extends Bloc<AdvicerEvent, AdvicerState> {
       when the button is pressed the first time, the initial state will be replaced
       with the loading state.
      */
+
+    String _mapFailure(Failure failure) {
+      switch (failure.runtimeType) {
+        case ServerFailure:
+          return "server Failure!!";
+        case ServerCacheFailure:
+          return "Cache Failure!!";
+        default:
+          return "Something went Wrong!!";
+      }
+    }
+
     on<AdviceRequestedEvent>((event, emit) async {
       emit(AdvicerStateLoading());
       //execute busniss logic... ex: call a function that creates job instance
@@ -25,7 +38,7 @@ class AdvicerBloc extends Bloc<AdvicerEvent, AdvicerState> {
       // calling the domain layer to get the advice!!!
       final failureOrAdvice = await adviceUseCases.getAdvice();
       failureOrAdvice.fold(
-        (failure) => emit(AdvicerStateError(message: "error!!!")),
+        (failure) => emit(AdvicerStateError(message: _mapFailure(failure))),
         (success) => emit(AdvicerStateLoaded(advice: success.advice)),
       );
     });

@@ -30,3 +30,19 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+/*
+  State management using change notifier and consumer:
+    User interacts (e.g., toggles theme)
+          ⬇️
+    ThemeService.toggleTheme() is called
+          ⬇️
+    isDarkModeOn is updated
+          ⬇️
+    notifyListeners() triggers UI rebuild
+          ⬇️
+    Consumer rebuilds MaterialApp with new theme
+
+
+ */

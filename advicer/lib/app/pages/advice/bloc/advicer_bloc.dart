@@ -1,3 +1,4 @@
+import 'package:advicer/domain/useCases/advice_usecases.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
@@ -8,6 +9,8 @@ part 'advicer_state.dart';
 
 class AdvicerBloc extends Bloc<AdvicerEvent, AdvicerState> {
   AdvicerBloc() : super(AdvicerInitial()) {
+    final AdviceUseCases adviceUseCases = AdviceUseCases();
+
     /*
       when the button is pressed the first time, the initial state will be replaced
       with the loading state.
@@ -18,9 +21,11 @@ class AdvicerBloc extends Bloc<AdvicerEvent, AdvicerState> {
 
       // simulating the scenario
       debugPrint("fake advice triggered!!");
-      await Future.delayed(const Duration(seconds: 2), () {});
+
+      // calling the domain layer to get the advice!!!
+      final advice = await adviceUseCases.getAdvice();
       debugPrint("got advice!!");
-      emit(AdvicerStateLoaded(advice: "fake advide is here!!!!"));
+      emit(AdvicerStateLoaded(advice: advice.advice));
     });
   }
 }

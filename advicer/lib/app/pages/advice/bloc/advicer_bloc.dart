@@ -23,9 +23,11 @@ class AdvicerBloc extends Bloc<AdvicerEvent, AdvicerState> {
       debugPrint("fake advice triggered!!");
 
       // calling the domain layer to get the advice!!!
-      final advice = await adviceUseCases.getAdvice();
-      debugPrint("got advice!!");
-      emit(AdvicerStateLoaded(advice: advice.advice));
+      final failureOrAdvice = await adviceUseCases.getAdvice();
+      failureOrAdvice.fold(
+        (failure) => emit(AdvicerStateError(message: "error!!!")),
+        (success) => emit(AdvicerStateLoaded(advice: success.advice)),
+      );
     });
   }
 }
